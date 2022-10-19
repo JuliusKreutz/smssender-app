@@ -1,0 +1,49 @@
+plugins {
+    id 'com.android.application'
+    id 'com.palantir.git-version' version '0.15.0'
+}
+
+android {
+    compileOptions.encoding = 'UTF-8'
+
+    namespace 'dev.kreutz.smssender.app'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "dev.kreutz.smssender.app"
+        minSdk 24
+        targetSdk 33
+        versionCode 1
+        versionName versionDetails().lastTag
+    }
+
+    signingConfigs {
+        release {
+            storeFile file('keystore.jks')
+            storePassword 'julius12'
+            keyAlias 'key0'
+            keyPassword 'julius12'
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+}
+
+dependencies {
+    implementation 'com.github.JuliusKreutz:smssender-shared:1.0'
+    implementation 'com.github.javiersantos:AppUpdater:2.7'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+}
